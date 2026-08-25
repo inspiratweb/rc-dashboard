@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/* 1. Figma Official Tokens & Base HTML Styles */
+:root {
+  --text-primary: #141414;
+  --text-secondary: #767676;
+  --text-inverted: #ffffff;
+  --text-action-disabled: #a5a5a5;
+  --surface-primary: #ffffff;
+  --surface-secondary: #e0e0e0;
+  --surface-tertiary: #f6f6f6;
+  --surface-inverted: #222222;
+  --brand-primary: #576cdb;
+  --brand-secondary: #00d87b;
+
+  background-color: var(--surface-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 2. Theme configuration (Tailwind Theme Integration) */
+@theme {
+  --spacing: 8px;
+  --font-sans:
+    "PP Object Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+
+  /* Font sizes */
+  --text-heading-md: 24px;
+  --text-heading-md--line-height: 1.33;
+  --text-body-xs: 11px;
+  --text-body-xs--line-height: 1.45;
+  --text-body-sm: 12px;
+  --text-body-sm--line-height: 1.34;
+  --text-body-md: 14px;
+  --text-body-md--line-height: 1.43;
+
+  /* Border radiuses */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Brand Colors for Tailwind (rest of the colors are managed by custom variables) */
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+}
+
+/* 3. Typography & Fonts */
+@font-face {
+  font-family: "PP Object Sans";
+  src: url("./fonts/PPObjectSans-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Object Sans";
+  src: url("./fonts/PPObjectSans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Object Sans";
+  src: url("./fonts/PPObjectSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Object Sans";
+  src: url("./fonts/PPObjectSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Object Sans";
+  src: url("./fonts/PPObjectSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Object Sans";
+  src: url("./fonts/PPObjectSans-Heavy.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Object Sans";
+  src: url("./fonts/PPObjectSans-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 4. Design System Utility Utilities */
+@utility fg-primary {
+  color: var(--text-primary);
+}
+
+@utility fg-secondary {
+  color: var(--text-secondary);
+}
+
+@utility fg-action-disabled {
+  color: var(--text-action-disabled);
+}
+
+@utility fg-inverted {
+  color: var(--text-inverted);
+}
+
+@utility bg-surface-primary {
+  background-color: var(--surface-primary);
+}
+
+@utility bg-surface-inverted {
+  background-color: var(--surface-inverted);
+}
+
+@utility bg-surface-tertiary {
+  background-color: var(--surface-tertiary);
+}
+
+@utility st-b {
+  box-shadow: inset 0 -1px 0 var(--stroke-color, transparent);
+}
+
+@utility st-r {
+  box-shadow: inset -1px 0 0 var(--stroke-color, transparent);
+}
+
+@utility st-surface-secondary {
+  --stroke-color: var(--surface-secondary);
+}
+
+@utility shadow-scroll-footer {
+  background: linear-gradient(
+    to top,
+    var(--surface-tertiary) 0%,
+    transparent 100%
+  );
+}
+
+/* 5. Accessibility & Keyboard Navigation */
+button:focus-visible,
+a:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+  transition: outline-offset 0.15s ease;
+}
