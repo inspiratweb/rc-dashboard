@@ -180,7 +180,7 @@ export function OnboardingBanner({ className }: OnboardingBannerProps) {
       )}
     >
       {/* Header Info */}
-      <div className="flex flex-row items-start justify-between gap-3">
+      <div className="flex flex-col md:flex-row items-start justify-between gap-3">
         <div className="flex flex-col text-left">
           <h2 className="text-heading-md font-bold">
             Get ready to use RevenueCat.
@@ -191,7 +191,7 @@ export function OnboardingBanner({ className }: OnboardingBannerProps) {
         </div>
 
         {/* Progress & Quick Actions */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 shrink-0">
           <Card
             size="sm"
             surface="inverted"

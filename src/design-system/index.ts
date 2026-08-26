@@ -7,3 +7,4 @@ export * from "./components/Header/Header";
 export * from "./components/Button/Button";
 export * from "./components/Progress/Progress";
 export * from "./components/Card/Card";
+export * from "./components/Layout/Layout";

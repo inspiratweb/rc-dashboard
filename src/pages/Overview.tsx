@@ -5,7 +5,7 @@ export function Overview() {
   return (
     <>
       <OnboardingBanner />
-      <div className="flex flex-col m-3 gap-3">
+      <div className="flex flex-col p-3 gap-3">
         <div className="flex flex-col gap-1">
           <h1 className="text-heading-md font-bold">Overview</h1>
           <p className="text-body-md fg-secondary">
@@ -32,8 +32,6 @@ export function Overview() {
               <p className="text-body-xl fg-primary font-medium">$247,357</p>
               <div className="">[Revenue Chart Placeholder]</div>
             </Card>
-            <Card />
-            <Card />
           </div>
         </section>
       </div>

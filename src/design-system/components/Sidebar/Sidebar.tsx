@@ -24,6 +24,8 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   projects: { name: string; logoUrl?: string }[];
   mainNavItems: SidebarItemConfig[];
   bottomNavItems: SidebarItemConfig[];
+  mobileOpen?: boolean;
+  onMenuToggle?: () => void;
 }
 
 export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
@@ -34,6 +36,8 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
       projects,
       mainNavItems,
       bottomNavItems,
+      mobileOpen,
+      onMenuToggle,
       ...props
     },
     ref,
@@ -53,6 +57,7 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
               <TooltipTrigger asChild>
                 <Link
                   to={item.to}
+                  onClick={onMenuToggle}
                   className={cn(
                     "group flex w-full items-center gap-1 rounded-sm transition-colors cursor-pointer hover:fg-primary",
                     isItemActive ? "font-bold fg-primary" : "fg-secondary",
@@ -101,8 +106,11 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
         <aside
           ref={ref}
           className={cn(
-            "flex h-screen bg-surface-tertiary flex-col justify-between shrink-0 st-r st-surface-secondary transition-all duration-300 ease-in-out overflow-x-hidden text-left text-body-md font-medium fg-primary",
-            open ? "w-29" : "w-7",
+            "sm:h-screen bg-surface-tertiary flex-col justify-between shrink-0 st-r st-surface-secondary transition-all duration-300 ease-in-out overflow-x-hidden text-left text-body-md font-medium fg-primary",
+            "max-sm:fixed max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:z-40 max-sm:w-full max-sm:top-7 max-sm:transition-transform max-sm:duration-300 max-sm:ease-in-out",
+            "sm:flex sm:static sm:translate-x-0 w-7 lg:w-29",
+            !open && "lg:w-7",
+            mobileOpen ? "max-sm:translate-x-0" : "max-sm:-translate-x-full",
             className,
           )}
           {...props}
@@ -111,30 +119,28 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
           {currentProject && (
             <div className="p-2 st-b st-surface-secondary">
               <button
-                className="flex items-center justify-between gap-1 w-full text-left text-body-md font-medium fg-primary transition-all duration-300 ease-in-out cursor-pointer"
+                className="group flex items-center gap-1 w-full text-left text-body-md font-medium fg-primary transition-all duration-300 ease-in-out cursor-pointer"
                 aria-haspopup="listbox"
                 aria-expanded={false}
               >
-                <div className="flex items-center gap-1 min-w-0">
-                  <div className="h-3 w-3 shrink-0 flex items-center justify-center overflow-hidden rounded-sm bg-neutral-100">
-                    {currentProject.logoUrl ? (
-                      <img
-                        src={currentProject.logoUrl}
-                        alt={currentProject.name}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="h-full w-full bg-black" />
-                    )}
-                  </div>
-                  <span
-                    className={cn(
-                      "truncate transition-all duration-300 ease-in-out",
-                    )}
-                  >
-                    {currentProject.name}
-                  </span>
+                <div className="shrink-0 inline-flex items-center justify-center w-3 h-3 overflow-hidden rounded-sm">
+                  {currentProject.logoUrl ? (
+                    <img
+                      src={currentProject.logoUrl}
+                      alt={currentProject.name}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-black" />
+                  )}
                 </div>
+                <span
+                  className={cn(
+                    "truncate flex-1 transition-all duration-300 ease-in-out",
+                  )}
+                >
+                  {currentProject.name}
+                </span>
 
                 <ChevronDownIcon
                   aria-hidden="true"
@@ -159,13 +165,15 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
             <div className="absolute -top-2 left-0 right-[1px] h-2 pointer-events-none shadow-scroll-footer" />
             <div className="p-1">
               <ul className="flex w-full flex-col">
-                {renderNavItems(bottomNavItems, true)}
-                <li className="content-center p-1">
+                {renderNavItems(bottomNavItems)}
+                <li className="hidden lg:block p-1">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <button
                         onClick={toggleSidebar}
-                        aria-label={open ? "Collapse navigation" : "Expand navigation"}
+                        aria-label={
+                          open ? "Collapse navigation" : "Expand navigation"
+                        }
                         className="group flex items-center gap-1 fg-secondary hover:fg-primary cursor-pointer text-left text-body-md font-medium transition-all duration-300 ease-in-out"
                       >
                         <div className="shrink-0 inline-flex items-center justify-center w-3 h-3">

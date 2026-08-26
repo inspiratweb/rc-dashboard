@@ -1,4 +1,4 @@
-import { cn } from "@/design-system/utils";
+import { cn } from "../../utils";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import * as React from "react";
 

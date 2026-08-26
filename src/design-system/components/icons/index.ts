@@ -1,4 +1,5 @@
 export * from "./AdsIcon";
+export * from "./BurgerIcon";
 export * from "./CalendarIcon";
 export * from "./CatalogIcon";
 export * from "./ChartBarIcon";
@@ -6,6 +7,7 @@ export * from "./CheckIcon";
 export * from "./ChevronDownIcon";
 export * from "./ChevronLeftIcon";
 export * from "./ChevronRightIcon";
+export * from "./CloseIcon";
 export * from "./ConnectionsIcon";
 export * from "./CustomerCenterIcon";
 export * from "./DashboardIcon";
