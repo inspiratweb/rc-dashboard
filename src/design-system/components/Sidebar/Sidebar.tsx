@@ -59,7 +59,7 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
                   to={item.to}
                   onClick={onMenuToggle}
                   className={cn(
-                    "group flex w-full items-center gap-1 rounded-sm transition-colors cursor-pointer hover:fg-primary",
+                    "group flex w-full items-center gap-1 transition-colors cursor-pointer hover:fg-primary",
                     isItemActive ? "font-bold fg-primary" : "fg-secondary",
                   )}
                 >

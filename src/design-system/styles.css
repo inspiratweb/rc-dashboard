@@ -4,6 +4,8 @@
 :root {
   --text-primary: #141414;
   --text-secondary: #767676;
+  --text-secondary-subdued: #f8f8f8;
+  --text-tertiary: #bbbbbb;
   --text-primary-inverted: #ffffff;
   --text-action-disabled: #a5a5a5;
   --surface-primary: #ffffff;

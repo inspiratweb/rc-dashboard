@@ -1,7 +1,19 @@
 import { OnboardingBanner } from "@/components/OnboardingBanner";
-import { Button, CalendarIcon, Card } from "@/design-system";
+import { Button, CalendarIcon, Card, Chart } from "@/design-system";
+import revenueData from "../lib/revenue.json";
 
 export function Overview() {
+  // Process timestamps to human readable labels (e.g. Aug 1)
+  const chartData = revenueData.values.map((v) => {
+    const date = new Date(v.cohort * 1000);
+    const month = date.toLocaleDateString("en-US", { month: "short" });
+    const day = date.getDate();
+    return {
+      label: `${month} ${day}`,
+      value: v.value,
+    };
+  });
+
   return (
     <>
       <OnboardingBanner />
@@ -26,11 +38,21 @@ export function Overview() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-            <Card className="flex flex-col gap-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+            <Card className="flex flex-col gap-1 col-span-1 md:col-span-2">
               <h3 className="text-body-md fg-secondary">Revenue in the ***</h3>
               <p className="text-body-xl fg-primary font-medium">$247,357</p>
-              <div className="">[Revenue Chart Placeholder]</div>
+              <Chart data={chartData} variant="secondary" />
+            </Card>
+            <Card className="flex flex-col gap-1 col-span-1 md:col-span-1">
+              <h3 className="text-body-md fg-secondary">MRR</h3>
+              <p className="text-body-xl fg-primary font-medium">$307,504</p>
+              {/* MRR Chart goes here */}
+            </Card>
+            <Card className="flex flex-col gap-1 col-span-1 md:col-span-1">
+              <h3 className="text-body-md fg-secondary">ARR</h3>
+              <p className="text-body-xl fg-primary font-medium">$3,690,083</p>
+              {/* ARR Chart goes here */}
             </Card>
           </div>
         </section>
