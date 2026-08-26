@@ -45,7 +45,7 @@ function OnboardingStepCard({ step, onToggle }: OnboardingStepCardProps) {
         {step.id}
       </Card>
       <div>
-        <h3 className="text-body-lg font-bold">{step.title}</h3>
+        <h3 className="text-heading-sm font-bold">{step.title}</h3>
         <p className="text-body-lg font-normal">{step.description}</p>
       </div>
 
@@ -110,7 +110,7 @@ function CarouselArrow({ direction, visible, onClick }: CarouselArrowProps) {
   );
 }
 
-function useCarousel(dependency?: any) {
+function useCarousel(dependency?: unknown) {
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = React.useState(false);
   const [showRightArrow, setShowRightArrow] = React.useState(false);

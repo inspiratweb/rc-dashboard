@@ -110,7 +110,11 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
           {/* Header */}
           {currentProject && (
             <div className="p-2 st-b st-surface-secondary">
-              <button className="flex items-center justify-between gap-1 w-full text-left text-body-md font-medium fg-primary focus-visible:outline-none transition-all duration-300 ease-in-out cursor-pointer">
+              <button
+                className="flex items-center justify-between gap-1 w-full text-left text-body-md font-medium fg-primary transition-all duration-300 ease-in-out cursor-pointer"
+                aria-haspopup="listbox"
+                aria-expanded={false}
+              >
                 <div className="flex items-center gap-1 min-w-0">
                   <div className="h-3 w-3 shrink-0 flex items-center justify-center overflow-hidden rounded-sm bg-neutral-100">
                     {currentProject.logoUrl ? (
@@ -161,7 +165,8 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
                     <TooltipTrigger asChild>
                       <button
                         onClick={toggleSidebar}
-                        className="group flex items-center gap-1 fg-secondary hover:fg-primary cursor-pointer text-left text-body-md font-medium focus-visible:outline-none transition-all duration-300 ease-in-out"
+                        aria-label={open ? "Collapse navigation" : "Expand navigation"}
+                        className="group flex items-center gap-1 fg-secondary hover:fg-primary cursor-pointer text-left text-body-md font-medium transition-all duration-300 ease-in-out"
                       >
                         <div className="shrink-0 inline-flex items-center justify-center w-3 h-3">
                           {open ? <SidebarOutIcon /> : <SidebarInIcon />}

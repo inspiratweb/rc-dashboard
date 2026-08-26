@@ -4,7 +4,7 @@ import * as React from "react";
 import { cn } from "../../utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center transition-colors duration-300 ease-in-out focus-visible:outline-none cursor-pointer select-none",
+  "inline-flex items-center justify-center transition-colors duration-300 ease-in-out cursor-pointer select-none",
   {
     variants: {
       variant: {

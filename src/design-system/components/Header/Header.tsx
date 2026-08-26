@@ -50,13 +50,16 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
           ))}
           <Tooltip>
             <TooltipTrigger asChild>
-              <Avatar
-                tabIndex={0}
-                fallback={avatar.fallback}
-                src={avatar.src}
-                className="cursor-pointer"
+              <button
                 onClick={avatar.onClick}
-              />
+                className="rounded-full cursor-pointer"
+                aria-label={avatar.label || avatar.fallback}
+              >
+                <Avatar
+                  fallback={avatar.fallback}
+                  src={avatar.src}
+                />
+              </button>
             </TooltipTrigger>
             <TooltipContent side="bottom">
               {avatar.label || avatar.fallback}
