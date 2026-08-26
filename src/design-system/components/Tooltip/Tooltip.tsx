@@ -15,13 +15,13 @@ const TooltipContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 rounded-md bg-surface-inverted px-2 py-1 text-body-md font-normal fg-inverted",
+        "z-50 rounded-md bg-surface-primary-inverted px-2 py-1 text-body-md font-normal fg-primary-inverted",
         className,
       )}
       {...props}
     >
       {props.children}
-      <TooltipPrimitive.Arrow fill="bg-surface-inverted" />
+      <TooltipPrimitive.Arrow fill="bg-surface-primary-inverted" />
     </TooltipPrimitive.Content>
   </TooltipPrimitive.Portal>
 ));

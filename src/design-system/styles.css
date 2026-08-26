@@ -4,19 +4,23 @@
 :root {
   --text-primary: #141414;
   --text-secondary: #767676;
-  --text-inverted: #ffffff;
+  --text-primary-inverted: #ffffff;
   --text-action-disabled: #a5a5a5;
   --surface-primary: #ffffff;
   --surface-secondary: #e0e0e0;
   --surface-tertiary: #f6f6f6;
-  --surface-inverted: #222222;
+  --surface-primary-inverted: #222222;
   --brand-primary: #576cdb;
   --brand-secondary: #00d87b;
+  --info: #2b7fff;
+  --info-subdued: #458fff;
 
   background-color: var(--surface-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+
+  --focus-ring-color: var(--brand-primary);
 }
 
 /* 2. Theme configuration (Tailwind Theme Integration) */
@@ -35,6 +39,8 @@
   --text-body-sm--line-height: 1.34;
   --text-body-md: 14px;
   --text-body-md--line-height: 1.43;
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 1.5;
 
   /* Border radiuses */
   --radius-xs: 2px;
@@ -45,6 +51,8 @@
   /* Brand Colors for Tailwind (rest of the colors are managed by custom variables) */
   --color-brand-primary: var(--brand-primary);
   --color-brand-secondary: var(--brand-secondary);
+  --color-info: var(--info);
+  --color-info-subdued: var(--info-subdued);
 }
 
 /* 3. Typography & Fonts */
@@ -117,16 +125,16 @@
   color: var(--text-action-disabled);
 }
 
-@utility fg-inverted {
-  color: var(--text-inverted);
+@utility fg-primary-inverted {
+  color: var(--text-primary-inverted);
 }
 
 @utility bg-surface-primary {
   background-color: var(--surface-primary);
 }
 
-@utility bg-surface-inverted {
-  background-color: var(--surface-inverted);
+@utility bg-surface-primary-inverted {
+  background-color: var(--surface-primary-inverted);
 }
 
 @utility bg-surface-tertiary {
@@ -141,8 +149,16 @@
   box-shadow: inset -1px 0 0 var(--stroke-color, transparent);
 }
 
+@utility st {
+  box-shadow: inset 0 0 0 1px var(--stroke-color, transparent);
+}
+
 @utility st-surface-secondary {
   --stroke-color: var(--surface-secondary);
+}
+
+@utility st-info-subdued {
+  --stroke-color: var(--info-subdued);
 }
 
 @utility shadow-scroll-footer {
@@ -157,8 +173,12 @@
 button:focus-visible,
 a:focus-visible,
 [tabindex="0"]:focus-visible {
-  outline: 2px solid var(--brand-primary);
+  outline: 2px solid var(--focus-ring-color);
   outline-offset: 4px;
   border-radius: var(--radius-sm);
   transition: outline-offset 0.15s ease;
+}
+
+.bg-info {
+  --focus-ring-color: var(--surface-secondary);
 }

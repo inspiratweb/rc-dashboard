@@ -98,3 +98,63 @@ export const HEADER_NAV_ITEMS: HeaderActionItemConfig[] = [
   { label: "Help", icon: TooltipIcon },
   { label: "Notifications", icon: NotificationIcon },
 ];
+
+export interface OnboardingStepConfig {
+  id: number;
+  title: string;
+  description: string;
+  actionText: string;
+  actionUrl: string;
+  isCompleted: boolean;
+}
+
+export const MOCK_ONBOARDING_STEPS: OnboardingStepConfig[] = [
+  {
+    id: 1,
+    title: "Integrate the SDK",
+    description: "Add RevenueCat to your app. Copy your API key, use the sample code, or set up with AI prompts.",
+    actionText: "Install SDK",
+    actionUrl: "",
+    isCompleted: false,
+  },
+  {
+    id: 2,
+    title: "Create your first paywall",
+    description: "Create a paywall to sell in your app. Use RevenueCat's editor or build your own with our docs.",
+    actionText: "New Paywall",
+    actionUrl: "",
+    isCompleted: false,
+  },
+  {
+    id: 3,
+    title: "Make your first purchase",
+    description: "Test your setup by making a purchase in the app. Tap the purchase button on your Paywall.",
+    actionText: "Present a Paywall",
+    actionUrl: "",
+    isCompleted: false,
+  },
+  {
+    id: 4,
+    title: "Setup integrations",
+    description: "Connect your billing system or third party analytics like Stripe, Mixpanel, or Amplitude.",
+    actionText: "Link integrations",
+    actionUrl: "",
+    isCompleted: false,
+  },
+  {
+    id: 5,
+    title: "Configure webhooks",
+    description: "Get real-time transaction notifications sent straight to your server or Slack channel.",
+    actionText: "Add webhook",
+    actionUrl: "",
+    isCompleted: false,
+  },
+  {
+    id: 6,
+    title: "Invite your team",
+    description: "Grant project access to developers, marketers, and product managers in your organization.",
+    actionText: "Add members",
+    actionUrl: "",
+    isCompleted: false,
+  },
+];

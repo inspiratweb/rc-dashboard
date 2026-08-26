@@ -1,3 +1,7 @@
+import { OnboardingBanner } from "@/components/OnboardingBanner";
+
 export function Overview() {
-  return <div>Overview</div>;
+  return (
+    <OnboardingBanner />
+  );
 }
