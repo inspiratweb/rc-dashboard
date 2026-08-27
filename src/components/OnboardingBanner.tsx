@@ -28,10 +28,14 @@ interface OnboardingStepCardProps {
   onToggle: (id: number) => void;
 }
 
-function OnboardingStepCard({ step, onToggle }: OnboardingStepCardProps) {
+const OnboardingStepCard = React.memo(function OnboardingStepCard({
+  step,
+  onToggle,
+}: OnboardingStepCardProps) {
   return (
     <Card
       surface="inverted"
+      size="lg"
       className={cn(
         "flex-none text-left flex flex-col gap-2 justify-between min-h-28 w-43 transition-all",
         step.isCompleted && "opacity-60",
@@ -65,7 +69,7 @@ function OnboardingStepCard({ step, onToggle }: OnboardingStepCardProps) {
       </div>
     </Card>
   );
-}
+});
 
 interface CarouselArrowProps {
   direction: "left" | "right";
@@ -88,6 +92,7 @@ function CarouselArrow({ direction, visible, onClick }: CarouselArrowProps) {
       <Button
         onClick={onClick}
         variant="outline"
+        size="lg"
         surface="inverted"
         disabled={!visible}
         className={cn(
@@ -138,7 +143,7 @@ function useCarousel(dependency?: unknown) {
     };
   }, [checkScroll, dependency]);
 
-  const scroll = (direction: "left" | "right") => {
+  const scroll = React.useCallback((direction: "left" | "right") => {
     if (scrollRef.current) {
       const { clientWidth } = scrollRef.current;
       const scrollAmount = clientWidth * 0.7;
@@ -147,12 +152,14 @@ function useCarousel(dependency?: unknown) {
         behavior: "smooth",
       });
     }
-  };
+  }, []);
 
   return { scrollRef, showLeftArrow, showRightArrow, scroll };
 }
 
-export function OnboardingBanner({ className }: OnboardingBannerProps) {
+export const OnboardingBanner = React.memo(function OnboardingBanner({
+  className,
+}: OnboardingBannerProps) {
   const [steps, setSteps] = React.useState(MOCK_ONBOARDING_STEPS);
   const { scrollRef, showLeftArrow, showRightArrow, scroll } =
     useCarousel(steps);
@@ -160,17 +167,17 @@ export function OnboardingBanner({ className }: OnboardingBannerProps) {
   const completedCount = steps.filter((s) => s.isCompleted).length;
   const progressPercentage = (completedCount / steps.length) * 100;
 
-  const handleMarkAllDone = () => {
+  const handleMarkAllDone = React.useCallback(() => {
     setSteps((prev) => prev.map((step) => ({ ...step, isCompleted: true })));
-  };
+  }, []);
 
-  const handleToggleStep = (id: number) => {
+  const handleToggleStep = React.useCallback((id: number) => {
     setSteps((prev) =>
       prev.map((step) =>
         step.id === id ? { ...step, isCompleted: !step.isCompleted } : step,
       ),
     );
-  };
+  }, []);
 
   return (
     <div
@@ -249,4 +256,4 @@ export function OnboardingBanner({ className }: OnboardingBannerProps) {
       </div>
     </div>
   );
-}
+});

@@ -8,6 +8,7 @@ export * from "./ChevronDownIcon";
 export * from "./ChevronLeftIcon";
 export * from "./ChevronRightIcon";
 export * from "./CloseIcon";
+export * from "./CompareIcon";
 export * from "./ConnectionsIcon";
 export * from "./CustomerCenterIcon";
 export * from "./DashboardIcon";

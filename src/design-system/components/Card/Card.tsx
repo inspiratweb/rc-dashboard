@@ -9,7 +9,8 @@ const cardVariants = cva("st select-none", {
       inverted: "st-info-subdued fg-primary-inverted",
     },
     size: {
-      md: "text-body-md p-2 rounded-lg",
+      lg: "text-body-md p-2 rounded-xl",
+      md: "text-body-md p-2 rounded-md",
       sm: "text-body-sm py-0.5 px-1.5 min-h-4 min-w-4 rounded-md",
     },
   },

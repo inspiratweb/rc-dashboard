@@ -17,6 +17,7 @@ const buttonVariants = cva(
         inverted: "",
       },
       size: {
+        lg: "text-body-md py-1.3 px-1 min-h-4 gap-1 rounded-lg",
         md: "text-body-md py-1.3 px-1 min-h-4 gap-1 rounded-md",
         sm: "text-body-sm py-1 px-1.5 min-h-4 gap-1 rounded-md",
       },

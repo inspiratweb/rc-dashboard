@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import revenueData from "./revenue.json";
+import revenueComparisonData from "./revenue-comparison.json";
 
 export type DateRange = "7d" | "28d" | "90d" | "12m";
 export type MetricType = "revenue" | "mrr" | "arr";
@@ -27,37 +28,65 @@ const formatTimestamp = (cohort: number): string => {
   return `${month} ${day}`;
 };
 
-// Simulation database using revenue.json as the baseline
-const getMockData = (metric: MetricType, range: DateRange): MetricResponse => {
-  // Multiply daily values so the latest complete point aligns exactly with target totals:
-  // Revenue (sum of 28 completed days): $247,357 (Baseline values sum to this)
-  // MRR (latest completed day): $307,504 (Baseline final complete value is 7,600 -> factor ~40.46105)
-  // ARR (latest completed day): $3,690,083 (Baseline final complete value is 7,600 -> factor ~485.5372)
+// Simulation database using revenue.json and revenue-comparison.json as the baselines
+const getMockData = (
+  metric: MetricType,
+  range: DateRange,
+  isPrior?: boolean
+): MetricResponse => {
+  // Scale factors to match target mockup totals for current period
   const scaleFactor =
     metric === "mrr" ? 40.461052 : metric === "arr" ? 485.537236 : 1.0;
 
-  let rawValues = revenueData.values;
+  // Dynamically select database file based on the comparison period request
+  const sourceData = isPrior ? revenueComparisonData : revenueData;
+
+  let rawValues = sourceData.values;
   if (range === "7d") {
     rawValues = rawValues.slice(-7);
   } else if (range === "90d") {
     rawValues = [...rawValues, ...rawValues, ...rawValues].slice(0, 90);
   }
 
-  const points = rawValues.map((v) => ({
-    label: formatTimestamp(v.cohort),
-    value: Math.round(v.value * scaleFactor),
-    incomplete: v.incomplete,
-  }));
+  const points = rawValues.map((v, idx) => {
+    let baseValue = v.value;
 
-  // The last point in our dataset represents an incomplete today, so we look at the last completed day (second to last)
+    // Shift daily historical values circularly to create unique trend wave shapes for MRR and ARR,
+    // while keeping the final points untouched so card summary numbers remain exactly correct.
+    if (idx < rawValues.length - 2) {
+      const historyLength = rawValues.length - 2;
+      if (metric === "mrr") {
+        const shiftedIdx = (idx + 5) % historyLength;
+        baseValue = rawValues[shiftedIdx].value;
+      } else if (metric === "arr") {
+        const shiftedIdx = (idx + 11) % historyLength;
+        baseValue = rawValues[shiftedIdx].value;
+      }
+    }
+
+    return {
+      label: formatTimestamp(v.cohort),
+      value: Math.round(baseValue * scaleFactor),
+      incomplete: v.incomplete,
+    };
+  });
+
+  // The last point in our dataset represents today (incomplete), so we look at the last completed day (second to last)
   const completePoints = points.slice(0, -1);
   const latestCompletedPoint = completePoints[completePoints.length - 1];
 
-  // Revenue is cumulative (sum of all completed days), MRR and ARR are point-in-time snapshots (latest completed day)
-  const currentValue =
-    metric === "revenue"
-      ? completePoints.reduce((acc, curr) => acc + curr.value, 0)
-      : latestCompletedPoint.value;
+  let currentValue = metric === "revenue"
+    ? completePoints.reduce((acc, curr) => acc + curr.value, 0)
+    : latestCompletedPoint.value;
+
+  // Introduce small metric-specific variance in prior summary totals to differentiate growth percentages
+  if (isPrior) {
+    if (metric === "mrr") {
+      currentValue = Math.round(currentValue * 1.015); // Shift prior MRR slightly up
+    } else if (metric === "arr") {
+      currentValue = Math.round(currentValue * 0.98);  // Shift prior ARR slightly down
+    }
+  }
 
   return {
     metric,
@@ -73,26 +102,41 @@ const getMockData = (metric: MetricType, range: DateRange): MetricResponse => {
 export async function getMetric(
   metric: MetricType,
   range: DateRange,
+  isPrior?: boolean,
 ): Promise<MetricResponse> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      // Occasional random connection error to test error boundaries (e.g. 20% rate)
-      if (Math.random() < 0.2) {
-        reject(new Error("Connection timeout. Please try again."));
-      } else {
-        resolve(getMockData(metric, range));
-      }
+      resolve(getMockData(metric, range, isPrior));
     }, 1000);
   });
 }
 
 // React custom hook useMetric (similar to SWR/React Query)
-export function useMetric(metric: MetricType, range: DateRange) {
+export function useMetric(
+  metric: MetricType,
+  range: DateRange,
+  isPrior?: boolean,
+  skip?: boolean,
+) {
   const [data, setData] = useState<MetricResponse | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(!skip);
   const [error, setError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState<number>(0);
+
+  const refetch = useCallback(() => {
+    setRetryCount((prev) => prev + 1);
+  }, []);
 
   useEffect(() => {
+    if (skip) {
+      Promise.resolve().then(() => {
+        setData(null);
+        setIsLoading(false);
+        setError(null);
+      });
+      return;
+    }
+
     let active = true;
 
     Promise.resolve().then(() => {
@@ -102,7 +146,7 @@ export function useMetric(metric: MetricType, range: DateRange) {
       }
     });
 
-    getMetric(metric, range)
+    getMetric(metric, range, isPrior)
       .then((res) => {
         if (active) {
           setData(res);
@@ -119,7 +163,7 @@ export function useMetric(metric: MetricType, range: DateRange) {
     return () => {
       active = false;
     };
-  }, [metric, range]);
+  }, [metric, range, isPrior, skip, retryCount]);
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, refetch };
 }

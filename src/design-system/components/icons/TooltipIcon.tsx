@@ -12,8 +12,8 @@ export function TooltipIcon(props: IconProps) {
         fill="currentColor"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M13 1C14.6569 1 16 2.34315 16 4V11C16 12.6569 14.6569 14 13 14H10.4141L9.41406 15C8.63303 15.7809 7.36697 15.7809 6.58594 15L5.58594 14H3C1.34315 14 0 12.6569 0 11V4C0 2.34315 1.34315 1 3 1H13ZM3 3C2.44772 3 2 3.44772 2 4V11C2 11.5523 2.44772 12 3 12H6.41406L8 13.5859L9.58594 12H13C13.5523 12 14 11.5523 14 11V4C14 3.44772 13.5523 3 13 3H3Z"
         fill="currentColor"
       />

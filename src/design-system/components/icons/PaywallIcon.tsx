@@ -8,8 +8,8 @@ export function PaywallIcon(props: IconProps) {
         fill="currentColor"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M11 1C12.6569 1 14 2.34315 14 4V12C14 13.6569 12.6569 15 11 15H5C3.34315 15 2 13.6569 2 12V4C2 2.34315 3.34315 1 5 1H11ZM5 3C4.44772 3 4 3.44772 4 4V12C4 12.5523 4.44772 13 5 13H11C11.5523 13 12 12.5523 12 12V4C12 3.44772 11.5523 3 11 3H5Z"
         fill="currentColor"
       />
