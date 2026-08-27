@@ -6,7 +6,7 @@ const cardVariants = cva("st select-none", {
   variants: {
     surface: {
       default: "st-surface-secondary fg-secondary",
-      inverted: "st-info-subdued fg-primary-inverted",
+      accent: "st-on-accent fg-on-accent",
     },
     size: {
       lg: "text-body-md p-2 rounded-xl",

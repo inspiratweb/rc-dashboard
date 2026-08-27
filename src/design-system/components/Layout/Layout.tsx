@@ -36,9 +36,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
             mobileMenuOpen={mobileMenuOpen}
             onMenuToggle={toggleMenu}
           />
-          <main className="flex-1 overflow-y-auto">
-            {children}
-          </main>
+          <main className="flex-1 overflow-y-auto">{children}</main>
         </div>
       </div>
     );

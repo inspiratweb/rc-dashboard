@@ -45,7 +45,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
           {/* Hamburger Icon - only visible below sm (mobile) */}
           <button
             onClick={onMenuToggle}
-            className="sm:hidden flex items-center justify-center cursor-pointer fg-secondary hover:fg-primary"
+            className="sm:hidden flex items-center justify-center cursor-pointer fg-secondary hover:fg-primary transition-colors"
             aria-label={
               mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
             }

@@ -4,22 +4,22 @@ import * as React from "react";
 import { cn } from "../../utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center transition-colors duration-300 ease-in-out cursor-pointer select-none",
+  "px-1 min-h-4 gap-1 inline-flex items-center justify-center transition-colors duration-300 ease-in-out cursor-pointer select-none",
   {
     variants: {
       variant: {
-        filled: "font-bold",
-        outline: "st font-bold",
-        ghost: "font-medium",
+        filled: "font-semibold",
+        outline: "st font-semibold",
+        ghost: "font-medium px-0",
       },
       surface: {
         default: "",
-        inverted: "",
+        accent: "",
       },
       size: {
-        lg: "text-body-md py-1.3 px-1 min-h-4 gap-1 rounded-lg",
-        md: "text-body-md py-1.3 px-1 min-h-4 gap-1 rounded-md",
-        sm: "text-body-sm py-1 px-1.5 min-h-4 gap-1 rounded-md",
+        lg: "text-body-md py-1.3 rounded-lg",
+        md: "text-body-md py-1.3 rounded-md",
+        sm: "text-body-sm py-1 rounded-md",
       },
     },
     compoundVariants: [
@@ -27,34 +27,34 @@ const buttonVariants = cva(
       {
         surface: "default",
         variant: "filled",
-        class: "bg-info fg-primary-inverted hover:bg-info-subdued",
+        class: "bg-surface-secondary fg-secondary",
       },
       {
         surface: "default",
         variant: "outline",
-        class: "st-surface-secondary fg-secondary hover:bg-surface-tertiary",
+        class: "st-surface-secondary fg-secondary",
       },
       {
         surface: "default",
         variant: "ghost",
-        class: "fg-secondary hover:bg-surface-tertiary",
+        class: "fg-secondary",
       },
 
-      // 2. Surface Inverted
+      // 2. Surface Accent
       {
-        surface: "inverted",
+        surface: "accent",
         variant: "filled",
-        class: "bg-surface-primary fg-primary hover:bg-surface-tertiary",
+        class: "bg-on-accent fg-on-accent-inverted",
       },
       {
-        surface: "inverted",
+        surface: "accent",
         variant: "outline",
-        class: "st-info-subdued fg-primary-inverted hover:bg-info-subdued",
+        class: "st-on-accent fg-on-accent",
       },
       {
-        surface: "inverted",
+        surface: "accent",
         variant: "ghost",
-        class: "fg-primary-inverted hover:bg-info-subdued",
+        class: "fg-on-accent",
       },
     ],
     defaultVariants: {

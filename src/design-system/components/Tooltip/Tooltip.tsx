@@ -21,7 +21,7 @@ const TooltipContent = React.forwardRef<
       {...props}
     >
       {props.children}
-      <TooltipPrimitive.Arrow fill="bg-surface-primary-inverted" />
+      <TooltipPrimitive.Arrow fill="var(--surface-primary-inverted)" />
     </TooltipPrimitive.Content>
   </TooltipPrimitive.Portal>
 ));

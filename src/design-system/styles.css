@@ -1,13 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
 /* 1. Figma Official Tokens & Base HTML Styles */
 :root {
   --text-primary: #141414;
+  --text-primary-inverted: #ffffff;
   --text-secondary: #767676;
   --text-secondary-subdued: #f8f8f8;
   --text-tertiary: #bbbbbb;
-  --text-primary-inverted: #ffffff;
-  --text-action-disabled: #a5a5a5;
   --surface-primary: #ffffff;
   --surface-secondary: #e0e0e0;
   --surface-tertiary: #f6f6f6;
@@ -18,7 +18,15 @@
   --info: #2b7fff;
   --positive: #00723a;
   --negative: #b0171f;
-  --info-subdued: #458fff;
+
+  --surface-popover: #fafafa;
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+  /* Contrast tokens for inverted surfaces */
+  --on-accent: #ffffff;
+  --on-accent-inverted: #000000;
+  --on-accent-subdued: rgba(255, 255, 255, 0.25);
 
   background-color: var(--surface-primary);
   color: var(--text-primary);
@@ -28,10 +36,40 @@
   --focus-ring-color: var(--brand-primary);
 }
 
+.text-heading-md,
+.text-heading-sm {
+  font-family: var(--font-display);
+}
+
+:root.dark {
+  --text-primary: #f5f5f5;
+  --text-primary-inverted: #1a1a1a;
+  --text-secondary: #a0a0a0;
+  --text-secondary-subdued: #1c1c1e;
+  --text-tertiary: #5c5c5e;
+  --surface-primary: #121212;
+  --surface-secondary: #2a2a2c;
+  --surface-tertiary: #1c1c1e;
+  --surface-primary-inverted: #f5f5f5;
+
+  --info: #004ec2;
+  --positive: #30d158;
+  --negative: #ff453a;
+
+  --surface-popover: #202021;
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 1), 0 4px 6px -4px rgba(0, 0, 0, 1);
+
+  /* Contrast tokens for inverted surfaces */
+  --on-accent-subdued: rgba(255, 255, 255, 0.15);
+}
+
 /* 2. Theme configuration (Tailwind Theme Integration) */
 @theme {
   --spacing: 8px;
   --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display:
     "PP Object Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     sans-serif;
 
@@ -64,36 +102,16 @@
   --color-brand-primary: var(--brand-primary);
   --color-brand-secondary: var(--brand-secondary);
   --color-info: var(--info);
-  --color-info-subdued: var(--info-subdued);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
+
+  --color-surface-popover: var(--surface-popover);
+  --color-on-accent: var(--on-accent);
+  --color-on-accent-inverted: var(--on-accent-inverted);
+  --color-on-accent-subdued: var(--on-accent-subdued);
 }
 
 /* 3. Typography & Fonts */
-@font-face {
-  font-family: "PP Object Sans";
-  src: url("./fonts/PPObjectSans-Thin.woff2") format("woff2");
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Object Sans";
-  src: url("./fonts/PPObjectSans-Light.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Object Sans";
-  src: url("./fonts/PPObjectSans-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 @font-face {
   font-family: "PP Object Sans";
   src: url("./fonts/PPObjectSans-Medium.woff2") format("woff2");
@@ -110,22 +128,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "PP Object Sans";
-  src: url("./fonts/PPObjectSans-Heavy.woff2") format("woff2");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Object Sans";
-  src: url("./fonts/PPObjectSans-Black.woff2") format("woff2");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* 4. Design System Utility Utilities */
 @utility fg-primary {
   color: var(--text-primary);
@@ -135,12 +137,20 @@
   color: var(--text-secondary);
 }
 
-@utility fg-action-disabled {
-  color: var(--text-action-disabled);
-}
-
 @utility fg-primary-inverted {
   color: var(--text-primary-inverted);
+}
+
+@utility fg-on-accent {
+  color: var(--on-accent);
+}
+
+@utility fg-on-accent-inverted {
+  color: var(--on-accent-inverted);
+}
+
+@utility fg-on-accent-subdued {
+  color: var(--on-accent-subdued);
 }
 
 @utility bg-surface-primary {
@@ -151,8 +161,24 @@
   background-color: var(--surface-primary-inverted);
 }
 
+@utility bg-surface-secondary {
+  background-color: var(--surface-secondary);
+}
+
 @utility bg-surface-tertiary {
   background-color: var(--surface-tertiary);
+}
+
+@utility bg-surface-popover {
+  background-color: var(--surface-popover);
+}
+
+@utility bg-on-accent {
+  background-color: var(--on-accent);
+}
+
+@utility bg-on-accent-subdued {
+  background-color: var(--on-accent-subdued);
 }
 
 @utility st-b {
@@ -171,8 +197,8 @@
   --stroke-color: var(--surface-secondary);
 }
 
-@utility st-info-subdued {
-  --stroke-color: var(--info-subdued);
+@utility st-on-accent {
+  --stroke-color: var(--on-accent-subdued);
 }
 
 @utility shadow-scroll-footer {
@@ -194,5 +220,5 @@ a:focus-visible,
 }
 
 .bg-info {
-  --focus-ring-color: var(--surface-secondary);
+  --focus-ring-color: var(--on-accent);
 }

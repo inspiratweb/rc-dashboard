@@ -7,14 +7,26 @@ import {
 } from "@/lib/mockData";
 import { Overview } from "@/pages/Overview";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { useEffect } from "react";
 import avatarImage from "./assets/fran.png";
 
 function DashboardLayout() {
+  // Listen for global keyboard shortcut to toggle Dark Mode (Cmd/Ctrl + Shift + D)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === "d") {
+        e.preventDefault();
+        document.documentElement.classList.toggle("dark");
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <Layout
       sidebarProps={{
         currentProject: MOCK_PROJECTS[0],
-        projects: MOCK_PROJECTS,
         mainNavItems: MAIN_NAV_ITEMS,
         bottomNavItems: BOTTOM_NAV_ITEMS,
       }}

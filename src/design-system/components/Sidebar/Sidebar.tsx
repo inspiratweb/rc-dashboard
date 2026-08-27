@@ -21,7 +21,6 @@ export interface SidebarItemConfig {
 
 export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   currentProject: { name: string; logoUrl?: string };
-  projects: { name: string; logoUrl?: string }[];
   mainNavItems: SidebarItemConfig[];
   bottomNavItems: SidebarItemConfig[];
   mobileOpen?: boolean;
@@ -33,7 +32,6 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
     {
       className,
       currentProject,
-      projects,
       mainNavItems,
       bottomNavItems,
       mobileOpen,
@@ -60,7 +58,7 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
                   onClick={onMenuToggle}
                   className={cn(
                     "group flex w-full items-center gap-1 transition-colors cursor-pointer hover:fg-primary",
-                    isItemActive ? "font-bold fg-primary" : "fg-secondary",
+                    isItemActive ? "font-semibold fg-primary" : "fg-secondary",
                   )}
                 >
                   <div
@@ -144,10 +142,7 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
 
                 <ChevronDownIcon
                   aria-hidden="true"
-                  className={cn(
-                    "select-none transition-all duration-300 ease-in-out",
-                    projects.length === 1 && "fg-action-disabled",
-                  )}
+                  className="select-none transition-all duration-300 ease-in-out fg-secondary"
                 />
               </button>
             </div>

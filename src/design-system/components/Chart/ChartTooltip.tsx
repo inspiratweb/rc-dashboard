@@ -28,15 +28,20 @@ const TooltipRow = ({ value, color, prefix, className }: TooltipRowProps) => {
     typeof value === "number" ? formatCurrency(value) : value;
 
   return (
-    <div className={cn("flex items-center gap-0.5", className)}>
-      <span
-        className="w-1.5 h-1.5 rounded-full shrink-0"
-        style={{ backgroundColor: color }}
-      />
-      <span className="font-bold flex gap-0.5">
+    <div
+      className={cn(
+        "flex items-center justify-between gap-2 w-full",
+        className,
+      )}
+    >
+      <div className="flex items-center gap-1">
+        <span
+          className="w-1 h-1 rounded-full shrink-0"
+          style={{ backgroundColor: color }}
+        />
         {prefix && <span className="font-normal">{prefix}</span>}
-        <span className="">{formattedValue}</span>
-      </span>
+      </div>
+      <span className="font-semibold">{formattedValue}</span>
     </div>
   );
 };
@@ -73,7 +78,7 @@ export const ChartTooltip = ({
   }
 
   return (
-    <div className="bg-surface-primary fg-primary rounded-md p-1 shadow-lg text-body-sm flex flex-col gap-0.5 select-none pointer-events-none z-50 text-left">
+    <div className="bg-surface-popover fg-primary rounded-md p-1 shadow-lg text-body-sm flex flex-col gap-0.5 select-none pointer-events-none z-50 text-left">
       <p className="font-medium text-caption fg-secondary">{label}</p>
       <div className="flex flex-col gap-0.5">
         <TooltipRow

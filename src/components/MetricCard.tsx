@@ -40,7 +40,7 @@ function MetricCardMessageContent({
 }) {
   return (
     <>
-      <p className="text-body-xl fg-primary font-medium">—</p>
+      <p className="text-heading-md fg-primary font-medium">—</p>
       {/* Message layout in place of chart */}
       <div className="h-14 w-full flex flex-col justify-between">
         <div className="flex flex-col">
@@ -216,7 +216,7 @@ export function MetricCard({
       ) : (
         <>
           <div>
-            <p className="text-body-xl fg-primary font-medium">
+            <p className="text-heading-md fg-primary font-medium">
               {formattedValue}
             </p>
             {hasComparison && (

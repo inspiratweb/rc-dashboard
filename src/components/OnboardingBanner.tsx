@@ -34,7 +34,7 @@ const OnboardingStepCard = React.memo(function OnboardingStepCard({
 }: OnboardingStepCardProps) {
   return (
     <Card
-      surface="inverted"
+      surface="accent"
       size="lg"
       className={cn(
         "flex-none text-left flex flex-col gap-2 justify-between min-h-28 w-43 transition-all",
@@ -43,8 +43,8 @@ const OnboardingStepCard = React.memo(function OnboardingStepCard({
     >
       <Card
         size="sm"
-        surface="inverted"
-        className="w-4 h-4 flex items-center justify-center text-heading-sm font-bold"
+        surface="accent"
+        className="w-4 h-4 flex items-center justify-center text-body-md font-semibold"
       >
         {step.id}
       </Card>
@@ -54,13 +54,13 @@ const OnboardingStepCard = React.memo(function OnboardingStepCard({
       </div>
 
       <div className="flex items-center justify-between">
-        <Button variant="filled" size="sm" surface="inverted" asChild>
+        <Button variant="filled" size="sm" surface="accent" asChild>
           <a href={step.actionUrl || "#"}>{step.actionText}</a>
         </Button>
 
         <Button
           variant="ghost"
-          surface="inverted"
+          surface="accent"
           size="sm"
           onClick={() => onToggle(step.id)}
         >
@@ -93,7 +93,7 @@ function CarouselArrow({ direction, visible, onClick }: CarouselArrowProps) {
         onClick={onClick}
         variant="outline"
         size="lg"
-        surface="inverted"
+        surface="accent"
         disabled={!visible}
         className={cn(
           "absolute z-11 top-0 bottom-0 w-6 h-full bg-info transition-all duration-300",
@@ -182,7 +182,7 @@ export const OnboardingBanner = React.memo(function OnboardingBanner({
   return (
     <div
       className={cn(
-        "w-full bg-info fg-primary-inverted p-3 flex flex-col gap-3 overflow-hidden",
+        "w-full bg-info fg-on-accent p-3 flex flex-col gap-3 overflow-hidden",
         className,
       )}
     >
@@ -201,22 +201,22 @@ export const OnboardingBanner = React.memo(function OnboardingBanner({
         <div className="flex items-center gap-1 shrink-0">
           <Card
             size="sm"
-            surface="inverted"
+            surface="accent"
             className="flex flex-row gap-1 items-center"
           >
             <Progress
               value={progressPercentage}
-              indicatorClassName="bg-surface-primary"
-              className="w-6 h-0.5 bg-info-subdued"
+              indicatorClassName="bg-on-accent"
+              className="w-6 h-0.5 bg-on-accent-subdued"
             />
-            <span className="font-bold">
+            <span className="font-semibold">
               {completedCount} of {steps.length} completed
             </span>
           </Card>
           <Button
             variant="outline"
             size="sm"
-            surface="inverted"
+            surface="accent"
             onClick={handleMarkAllDone}
             disabled={completedCount === steps.length}
           >
