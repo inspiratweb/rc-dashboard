@@ -21,9 +21,14 @@ This file maps the codebase paths to their single responsibilities. Update this 
 - `src/components/MetricCard.tsx` - Handles metric presentation logic (states for loaded, loading, error, comparison trend labels).
 - `src/components/OnboardingBanner.tsx` - Renders the onboarding progress bar and step item horizontal carousel with blur masks.
 
+### Automated Testing Setup
+- `src/test/setup.ts` - Vitest testing setup file configuring custom jest-dom matchers.
+- `src/design-system/components/Button/Button.test.tsx` - Unit tests for the polymorphic Button component (variants and Slot-based rendering).
+
 ### Business Logic & Mock Data
 
 - `src/lib/metrics.ts` - Decoupled data-fetching services (exposes simulated asynchronous API hooks for revenue/mrr/arr metric datasets).
+- `src/lib/metrics.test.ts` - Unit tests for asynchronous data loading hooks and mock data structures.
 - `src/lib/mockData.ts` - Generates randomized but realistic mock cohort datasets representing growth, errors, and incomplete states.
 - `src/lib/revenue.json` - Static baseline mock data structure for standard metrics.
 - `src/lib/revenue-comparison.json` - Static baseline mock data structure representing comparison metrics.
