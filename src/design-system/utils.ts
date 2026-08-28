@@ -16,3 +16,17 @@ export function formatCurrency(
     maximumFractionDigits: 0,
   }).format(value);
 }
+
+export function formatDate(
+  cohort: number,
+  options: Intl.DateTimeFormatOptions = {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  },
+  locale: string = "en-US",
+): string {
+  const date = new Date(cohort * 1000);
+  return date.toLocaleDateString(locale, options);
+}

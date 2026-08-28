@@ -9,6 +9,7 @@ export interface MetricPoint {
   label: string;
   value: number;
   incomplete?: boolean;
+  cohort: number;
 }
 
 export interface MetricResponse {
@@ -68,6 +69,7 @@ const getMockData = (
       label: formatTimestamp(v.cohort),
       value: Math.round(baseValue * scaleFactor),
       incomplete: v.incomplete,
+      cohort: v.cohort,
     };
   });
 

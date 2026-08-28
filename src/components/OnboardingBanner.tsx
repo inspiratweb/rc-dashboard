@@ -34,10 +34,11 @@ const OnboardingStepCard = React.memo(function OnboardingStepCard({
 }: OnboardingStepCardProps) {
   return (
     <Card
+      as="li"
       surface="accent"
       size="lg"
       className={cn(
-        "flex-none text-left flex flex-col gap-2 justify-between min-h-28 w-43 transition-all",
+        "flex-none text-left flex flex-col gap-2 justify-between min-h-28 w-43 transition-all list-none",
         step.isCompleted && "opacity-60",
       )}
     >
@@ -115,8 +116,8 @@ function CarouselArrow({ direction, visible, onClick }: CarouselArrowProps) {
   );
 }
 
-function useCarousel(dependency?: unknown) {
-  const scrollRef = React.useRef<HTMLDivElement>(null);
+function useCarousel<T extends HTMLElement = HTMLElement>(dependency?: unknown) {
+  const scrollRef = React.useRef<T>(null);
   const [showLeftArrow, setShowLeftArrow] = React.useState(false);
   const [showRightArrow, setShowRightArrow] = React.useState(false);
 
@@ -162,7 +163,7 @@ export const OnboardingBanner = React.memo(function OnboardingBanner({
 }: OnboardingBannerProps) {
   const [steps, setSteps] = React.useState(MOCK_ONBOARDING_STEPS);
   const { scrollRef, showLeftArrow, showRightArrow, scroll } =
-    useCarousel(steps);
+    useCarousel<HTMLUListElement>(steps);
 
   const completedCount = steps.filter((s) => s.isCompleted).length;
   const progressPercentage = (completedCount / steps.length) * 100;
@@ -180,7 +181,8 @@ export const OnboardingBanner = React.memo(function OnboardingBanner({
   }, []);
 
   return (
-    <div
+    <section
+      aria-labelledby="onboarding-title"
       className={cn(
         "w-full bg-info fg-on-accent p-3 flex flex-col gap-3 overflow-hidden",
         className,
@@ -189,7 +191,7 @@ export const OnboardingBanner = React.memo(function OnboardingBanner({
       {/* Header Info */}
       <div className="flex flex-col md:flex-row items-start justify-between gap-3">
         <div className="flex flex-col text-left">
-          <h2 className="text-heading-md font-bold">
+          <h2 id="onboarding-title" className="text-heading-md font-bold">
             Get ready to use RevenueCat.
           </h2>
           <p className="text-body-md font-normal mt-1">
@@ -235,7 +237,7 @@ export const OnboardingBanner = React.memo(function OnboardingBanner({
         />
 
         {/* Scrollable list */}
-        <div
+        <ul
           ref={scrollRef}
           className="flex gap-3 overflow-x-auto no-scrollbar scroll-smooth"
         >
@@ -246,7 +248,7 @@ export const OnboardingBanner = React.memo(function OnboardingBanner({
               onToggle={handleToggleStep}
             />
           ))}
-        </div>
+        </ul>
 
         <CarouselArrow
           direction="right"
@@ -254,6 +256,6 @@ export const OnboardingBanner = React.memo(function OnboardingBanner({
           onClick={() => scroll("right")}
         />
       </div>
-    </div>
+    </section>
   );
 });

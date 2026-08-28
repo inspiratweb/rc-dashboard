@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { cn } from "../../utils";
+import { Button } from "../Button/Button";
 import { ChevronDownIcon } from "../icons/ChevronDownIcon";
 import { SidebarInIcon } from "../icons/SidebarInIcon";
 import { SidebarOutIcon } from "../icons/SidebarOutIcon";
@@ -50,47 +51,45 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
       return items.map((item) => {
         const isItemActive = !!item.isActive;
         return (
-          <li key={item.label} className="content-center p-1">
+          <li key={item.label} className="px-1 py-0.5">
             <Tooltip open={open ? false : undefined}>
               <TooltipTrigger asChild>
-                <Link
-                  to={item.to}
-                  onClick={onMenuToggle}
-                  className={cn(
-                    "group flex w-full items-center gap-1 transition-colors cursor-pointer hover:fg-primary",
-                    isItemActive ? "font-semibold fg-primary" : "fg-secondary",
-                  )}
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="w-full justify-start"
                 >
-                  <div
-                    className={cn(
-                      "shrink-0 inline-flex items-center justify-center w-3 h-3",
-                      isItemActive && "text-brand-primary",
-                    )}
-                  >
-                    {item.icon &&
-                      (typeof item.icon === "function" ? (
-                        <item.icon />
-                      ) : (
-                        item.icon
-                      ))}
-                  </div>
-                  <span
-                    className={cn(
-                      "flex-1 truncate text-left transition-all duration-300 ease-in-out origin-left",
-                    )}
-                  >
-                    {item.label}
-                  </span>
-                  {item.subItems && item.subItems.length > 0 && (
-                    <ChevronDownIcon
+                  <Link to={item.to} onClick={onMenuToggle}>
+                    <span
                       className={cn(
-                        "select-none transition-all duration-300 ease-in-out",
+                        "shrink-0 inline-flex items-center justify-center w-3 h-3",
+                        isItemActive && "text-brand-primary",
                       )}
-                      aria-hidden="true"
-                      size={16}
-                    />
-                  )}
-                </Link>
+                    >
+                      {item.icon &&
+                        (typeof item.icon === "function" ? (
+                          <item.icon />
+                        ) : (
+                          item.icon
+                        ))}
+                    </span>
+                    <span
+                      className={cn(
+                        "flex-1 truncate text-left",
+                        isItemActive && "font-semibold fg-primary",
+                      )}
+                    >
+                      {item.label}
+                    </span>
+                    {item.subItems && item.subItems.length > 0 && (
+                      <ChevronDownIcon
+                        className="select-none"
+                        aria-hidden="true"
+                        size={16}
+                      />
+                    )}
+                  </Link>
+                </Button>
               </TooltipTrigger>
               <TooltipContent side="right">{item.label}</TooltipContent>
             </Tooltip>
@@ -115,9 +114,10 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
         >
           {/* Header */}
           {currentProject && (
-            <div className="p-2 st-b st-surface-secondary">
-              <button
-                className="group flex items-center gap-1 w-full text-left text-body-md font-medium fg-primary transition-all duration-300 ease-in-out cursor-pointer"
+            <div className="flex px-2 py-1.5 st-b st-surface-secondary">
+              <Button
+                variant="ghost"
+                className="w-full justify-start"
                 aria-haspopup="listbox"
                 aria-expanded={false}
               >
@@ -132,49 +132,46 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
                     <div className="h-full w-full bg-black" />
                   )}
                 </div>
-                <span
-                  className={cn(
-                    "truncate flex-1 transition-all duration-300 ease-in-out",
-                  )}
-                >
+                <span className="truncate flex-1 text-left fg-primary">
                   {currentProject.name}
                 </span>
 
-                <ChevronDownIcon
-                  aria-hidden="true"
-                  className="select-none transition-all duration-300 ease-in-out fg-secondary"
-                />
-              </button>
+                <ChevronDownIcon aria-hidden="true" className="select-none" />
+              </Button>
             </div>
           )}
 
           {/* Content / Main Nav */}
-          <div className="flex-1 overflow-y-auto p-1">
+          <nav
+            aria-label="Main Navigation"
+            className="flex-1 overflow-y-auto p-1"
+          >
             <ul className="flex w-full flex-col">
               {renderNavItems(mainNavItems)}
             </ul>
-          </div>
+          </nav>
 
           {/* Footer Nav & Toggle */}
           <div className="relative">
             <div className="absolute -top-2 left-0 right-[1px] h-2 pointer-events-none shadow-scroll-footer" />
-            <div className="p-1">
+            <nav aria-label="Secondary Navigation" className="p-1">
               <ul className="flex w-full flex-col">
                 {renderNavItems(bottomNavItems)}
-                <li className="hidden lg:block p-1">
+                <li className="hidden lg:block px-1 py-0.5">
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <button
+                      <Button
+                        variant="ghost"
+                        className="justify-start"
                         onClick={toggleSidebar}
                         aria-label={
                           open ? "Collapse navigation" : "Expand navigation"
                         }
-                        className="group flex items-center gap-1 fg-secondary hover:fg-primary cursor-pointer text-left text-body-md font-medium transition-all duration-300 ease-in-out"
                       >
-                        <div className="shrink-0 inline-flex items-center justify-center w-3 h-3">
+                        <span className="shrink-0 inline-flex items-center justify-center w-3 h-3">
                           {open ? <SidebarOutIcon /> : <SidebarInIcon />}
-                        </div>
-                      </button>
+                        </span>
+                      </Button>
                     </TooltipTrigger>
                     <TooltipContent side="right">
                       {open ? "Collapse navigation" : "Expand navigation"}
@@ -182,7 +179,7 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
                   </Tooltip>
                 </li>
               </ul>
-            </div>
+            </nav>
           </div>
         </aside>
       </TooltipProvider>

@@ -25,16 +25,15 @@ export function Overview() {
             Understand your business at a glance
           </p>
         </div>
-
         <section
           className="flex flex-col gap-2"
           aria-labelledby="metrics-title"
         >
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 text-left">
             <h2 id="metrics-title" className="text-heading-sm font-bold">
               Revenue metrics
             </h2>
-            <div className="flex items-center gap-1">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1 max-sm:w-full max-sm:justify-start">
               <Button variant="outline" size="md">
                 <CalendarIcon /> Last {RANGE_LABELS[range]}
               </Button>

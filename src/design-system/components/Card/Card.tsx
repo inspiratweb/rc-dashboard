@@ -22,13 +22,15 @@ const cardVariants = cva("st select-none", {
 
 export interface CardProps
   extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof cardVariants> {}
+    React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof cardVariants> {
+  as?: React.ElementType;
+}
 
-const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, surface, size, ...props }, ref) => {
+const Card = React.forwardRef<HTMLElement, CardProps>(
+  ({ className, surface, size, as: Component = "div", ...props }, ref) => {
     return (
-      <div
+      <Component
         ref={ref}
         className={cn(cardVariants({ surface, size, className }))}
         {...props}

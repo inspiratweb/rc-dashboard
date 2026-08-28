@@ -32,12 +32,12 @@ const buttonVariants = cva(
       {
         surface: "default",
         variant: "outline",
-        class: "st-surface-secondary fg-secondary",
+        class: "st-surface-secondary fg-secondary hover:bg-surface-tertiary",
       },
       {
         surface: "default",
         variant: "ghost",
-        class: "fg-secondary",
+        class: "fg-secondary hover:fg-primary",
       },
 
       // 2. Surface Accent
@@ -49,7 +49,7 @@ const buttonVariants = cva(
       {
         surface: "accent",
         variant: "outline",
-        class: "st-on-accent fg-on-accent",
+        class: "st-on-accent fg-on-accent hover:bg-on-accent-subdued",
       },
       {
         surface: "accent",

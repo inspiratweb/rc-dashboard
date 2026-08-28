@@ -1,4 +1,4 @@
-import { cn, formatCurrency } from "../../utils";
+import { cn, formatCurrency, formatDate } from "../../utils";
 
 export interface ChartTooltipProps {
   active?: boolean;
@@ -9,6 +9,7 @@ export interface ChartTooltipProps {
     dataKey: string;
     payload: {
       label: string;
+      cohort: number;
     };
   }>;
   metricLabel?: string;
@@ -53,7 +54,8 @@ export const ChartTooltip = ({
 }: ChartTooltipProps) => {
   if (!active || !payload || payload.length === 0) return null;
 
-  const label = payload[0].payload.label;
+  const cohort = payload[0].payload.cohort;
+  const label = formatDate(cohort);
 
   // Recharts passes all active series in the payload. We filter them by key.
   const currentSeries = payload.find(
